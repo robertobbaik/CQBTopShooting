@@ -1,0 +1,44 @@
+# Unreal build outputs and caches
+/Binaries/
+/DerivedDataCache/
+/Intermediate/
+/Saved/
+
+# IDE and local user settings
+/.idea/
+/.vs/
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
+*.userprefs
+*.opensdf
+*.sdf
+*.tmp
+*.log
+
+# Visual Studio / Rider generated files
+*.sln.DotSettings.user
+*.uproject.DotSettings.user
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Keep only source code and project config by default
+!/Config/
+!/Source/
+!/*.uproject
+!/*.sln
+!/.vsconfig
+
+# Content is large; ignore by default
+/Content/
+
+# Allow lightweight docs under Content if needed
+!/Content/docs/
