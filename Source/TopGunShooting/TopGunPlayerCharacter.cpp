@@ -3,16 +3,12 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
+#include "FogOfWarRevealComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "InputAction.h"
-#include "InputMappingContext.h"
 #include "Math/Plane.h"
 #include "Math/RotationMatrix.h"
-#include "UObject/ConstructorHelpers.h"
 
 ATopGunPlayerCharacter::ATopGunPlayerCharacter()
 {
@@ -45,39 +41,11 @@ ATopGunPlayerCharacter::ATopGunPlayerCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 
+	FogOfWarRevealComponent = CreateDefaultSubobject<UFogOfWarRevealComponent>(TEXT("FogOfWarRevealComponent"));
+
 	USkeletalMeshComponent* CharacterMesh = GetMesh();
 	CharacterMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -96.0f));
 	CharacterMesh->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-
-	static ConstructorHelpers::FObjectFinder<UInputMappingContext> MappingContextFinder(TEXT("/Game/Input/IMC_Player.IMC_Player"));
-	if (MappingContextFinder.Succeeded())
-	{
-		DefaultMappingContext = MappingContextFinder.Object;
-	}
-
-	static ConstructorHelpers::FObjectFinder<UInputAction> MoveActionFinder(TEXT("/Game/Input/IA_Move.IA_Move"));
-	if (MoveActionFinder.Succeeded())
-	{
-		MoveAction = MoveActionFinder.Object;
-	}
-
-	static ConstructorHelpers::FObjectFinder<UInputAction> LookActionFinder(TEXT("/Game/Input/IA_Look.IA_Look"));
-	if (LookActionFinder.Succeeded())
-	{
-		LookAction = LookActionFinder.Object;
-	}
-
-	static ConstructorHelpers::FObjectFinder<UInputAction> PrecisionMoveActionFinder(TEXT("/Game/Input/IA_PrecisionMove.IA_PrecisionMove"));
-	if (PrecisionMoveActionFinder.Succeeded())
-	{
-		PrecisionMoveAction = PrecisionMoveActionFinder.Object;
-	}
-
-	static ConstructorHelpers::FObjectFinder<UInputAction> FastMoveActionFinder(TEXT("/Game/Input/IA_FastMove.IA_FastMove"));
-	if (FastMoveActionFinder.Succeeded())
-	{
-		FastMoveAction = FastMoveActionFinder.Object;
-	}
 }
 
 void ATopGunPlayerCharacter::Tick(float DeltaSeconds)
@@ -96,62 +64,10 @@ void ATopGunPlayerCharacter::BeginPlay()
 	CameraBoom->SetRelativeRotation(CameraArmRotation);
 	UpdateMovementSpeed();
 	CachedAimPoint = GetActorLocation() + GetActorForwardVector() * GamepadAimDistance;
-
-	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
-	{
-		if (ULocalPlayer* LocalPlayer = PlayerController->GetLocalPlayer())
-		{
-			if (UEnhancedInputLocalPlayerSubsystem* InputSubsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
-			{
-				if (DefaultMappingContext)
-				{
-					InputSubsystem->AddMappingContext(DefaultMappingContext, 0);
-				}
-			}
-		}
-
-		PlayerController->bShowMouseCursor = true;
-		PlayerController->CurrentMouseCursor = EMouseCursor::Default;
-		PlayerController->bEnableClickEvents = true;
-		PlayerController->bEnableMouseOverEvents = true;
-	}
 }
 
-void ATopGunPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ATopGunPlayerCharacter::MoveFromInput(FVector2D MovementVector)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
-	{
-		if (MoveAction)
-		{
-			EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATopGunPlayerCharacter::Move);
-			EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Completed, this, &ATopGunPlayerCharacter::Move);
-		}
-
-		if (LookAction)
-		{
-			EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATopGunPlayerCharacter::Look);
-			EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Completed, this, &ATopGunPlayerCharacter::Look);
-		}
-
-		if (PrecisionMoveAction)
-		{
-			EnhancedInputComponent->BindAction(PrecisionMoveAction, ETriggerEvent::Started, this, &ATopGunPlayerCharacter::BeginPrecisionMove);
-			EnhancedInputComponent->BindAction(PrecisionMoveAction, ETriggerEvent::Completed, this, &ATopGunPlayerCharacter::EndPrecisionMove);
-		}
-
-		if (FastMoveAction)
-		{
-			EnhancedInputComponent->BindAction(FastMoveAction, ETriggerEvent::Started, this, &ATopGunPlayerCharacter::BeginFastMove);
-			EnhancedInputComponent->BindAction(FastMoveAction, ETriggerEvent::Completed, this, &ATopGunPlayerCharacter::EndFastMove);
-		}
-	}
-}
-
-void ATopGunPlayerCharacter::Move(const FInputActionValue& Value)
-{
-	const FVector2D MovementVector = Value.Get<FVector2D>();
 	CachedMoveInput = MovementVector;
 
 	if (MovementVector.IsNearlyZero())
@@ -167,33 +83,21 @@ void ATopGunPlayerCharacter::Move(const FInputActionValue& Value)
 	AddMovementInput(RightDirection, MovementVector.X);
 }
 
-void ATopGunPlayerCharacter::Look(const FInputActionValue& Value)
+void ATopGunPlayerCharacter::LookFromInput(FVector2D LookVector)
 {
-	CachedLookInput = Value.Get<FVector2D>();
+	CachedLookInput = LookVector;
 	bUseLookInputAim = !CachedLookInput.IsNearlyZero();
 }
 
-void ATopGunPlayerCharacter::BeginPrecisionMove()
+void ATopGunPlayerCharacter::SetPrecisionMoveHeld(bool bNewHeld)
 {
-	bPrecisionMoveHeld = true;
+	bPrecisionMoveHeld = bNewHeld;
 	UpdateMovementSpeed();
 }
 
-void ATopGunPlayerCharacter::EndPrecisionMove()
+void ATopGunPlayerCharacter::SetFastMoveHeld(bool bNewHeld)
 {
-	bPrecisionMoveHeld = false;
-	UpdateMovementSpeed();
-}
-
-void ATopGunPlayerCharacter::BeginFastMove()
-{
-	bFastMoveHeld = true;
-	UpdateMovementSpeed();
-}
-
-void ATopGunPlayerCharacter::EndFastMove()
-{
-	bFastMoveHeld = false;
+	bFastMoveHeld = bNewHeld;
 	UpdateMovementSpeed();
 }
 

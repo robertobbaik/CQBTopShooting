@@ -124,7 +124,7 @@ InteractableDoor
  └─ 문 회전 처리
 VisionSystem
  ├─ Cone 계산
- └─ Fog of War Reveal
+ └─ Limited Vision Reveal
 AIController
  ├─ Hearing Sense
  ├─ Sight Sense

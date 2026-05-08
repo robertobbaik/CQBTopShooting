@@ -2,12 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "InputActionValue.h"
 #include "TopGunPlayerCharacter.generated.h"
 
 class UCameraComponent;
-class UInputAction;
-class UInputMappingContext;
+class UFogOfWarRevealComponent;
 class USpringArmComponent;
 
 UENUM(BlueprintType)
@@ -27,9 +25,13 @@ public:
 	ATopGunPlayerCharacter();
 	virtual void Tick(float DeltaSeconds) override;
 
+	void MoveFromInput(FVector2D MovementVector);
+	void LookFromInput(FVector2D LookVector);
+	void SetPrecisionMoveHeld(bool bNewHeld);
+	void SetFastMoveHeld(bool bNewHeld);
+
 protected:
 	virtual void BeginPlay() override;
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<USpringArmComponent> CameraBoom;
@@ -37,20 +39,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UCameraComponent> FollowCamera;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
-	TObjectPtr<UInputMappingContext> DefaultMappingContext;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
-	TObjectPtr<UInputAction> MoveAction;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
-	TObjectPtr<UInputAction> LookAction;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
-	TObjectPtr<UInputAction> PrecisionMoveAction;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
-	TObjectPtr<UInputAction> FastMoveAction;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UFogOfWarRevealComponent> FogOfWarRevealComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Movement", meta = (ClampMin = "0.0"))
 	float WalkSpeed = 400.0f;
@@ -77,12 +67,6 @@ protected:
 	ETopGunMovementState CurrentMovementState = ETopGunMovementState::Default;
 
 private:
-	void Move(const FInputActionValue& Value);
-	void Look(const FInputActionValue& Value);
-	void BeginPrecisionMove();
-	void EndPrecisionMove();
-	void BeginFastMove();
-	void EndFastMove();
 	void UpdateMovementSpeed();
 	void UpdateAim(float DeltaSeconds);
 	void UpdateAimFromCursor();
