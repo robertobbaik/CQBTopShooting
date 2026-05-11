@@ -1,0 +1,21 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.1.0",
+	"FriendlyName": "TopGun MCP Bridge",
+	"Description": "Starts the TopGunShooting Unreal MCP editor bridge from an enabled project plugin.",
+	"Category": "Editor",
+	"CreatedBy": "TopGunShooting",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"Installed": false,
+	"Plugins": [
+		{
+			"Name": "PythonScriptPlugin",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		}
+	]
+}

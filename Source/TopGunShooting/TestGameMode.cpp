@@ -6,7 +6,7 @@
 ATestGameMode::ATestGameMode()
 {
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(
-		TEXT("/Game/Blueprints/Character/BP_TopGunPlayerCharacter"));
+		TEXT("/Game/Blueprints/Character/BP_PointManCharacter"));
 
 	if (PlayerPawnClassFinder.Succeeded())
 	{
