@@ -236,7 +236,7 @@ void AFogOfWarManager::UpdatePostProcessMaterial()
 bool AFogOfWarManager::IsWorldLocationCurrentlyVisible(FVector WorldLocation) const
 {
 	FIntPoint Pixel;
-	return WorldToFogPixel(WorldLocation, Pixel) && FogAlpha.IsValidIndex(PixelIndex(Pixel.X, Pixel.Y)) && FogAlpha[PixelIndex(Pixel.X, Pixel.Y)] == VisibleAlpha;
+	return WorldToFogPixel(WorldLocation, Pixel) && FogAlpha.IsValidIndex(PixelIndex(Pixel.X, Pixel.Y)) && FogAlpha[PixelIndex(Pixel.X, Pixel.Y)] < ExploredAlpha;
 }
 
 bool AFogOfWarManager::WasWorldLocationExplored(FVector WorldLocation) const
