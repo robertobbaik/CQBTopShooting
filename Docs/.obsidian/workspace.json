@@ -1,0 +1,236 @@
+{
+  "main": {
+    "id": "a3992f4aae6bd12c",
+    "type": "split",
+    "children": [
+      {
+        "id": "3a3879009154f26c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "34a8daffd3db7d2d",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "factory_interior_top_view_reference.png"
+              },
+              "icon": "lucide-image",
+              "title": "factory_interior_top_view_reference"
+            }
+          }
+        ]
+      },
+      {
+        "id": "2ade3734cb8536cb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "61c056dad807f0d0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "03-decisions/adr-2026-05-12-visible-mask-enemy-rendering-ko.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "adr-2026-05-12-visible-mask-enemy-rendering-ko"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a3274882073dce3d",
+    "type": "split",
+    "children": [
+      {
+        "id": "b305b54553502129",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8f63ab75702fa5cd",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "df012e33be48a7be",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "11e9a4b1fedb78ff",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "북마크"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "39bffb468cb0aec1",
+    "type": "split",
+    "children": [
+      {
+        "id": "6446a28d424cfd9a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ef79c1d7c22c5c09",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "01-reviews/code-review-2026-05-12-en.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "code-review-2026-05-12-en 의 백링크"
+            }
+          },
+          {
+            "id": "e0ca01ec31418268",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "01-reviews/code-review-2026-05-12-en.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "code-review-2026-05-12-en 의 나가는 링크"
+            }
+          },
+          {
+            "id": "1c7c38179dcd9ef3",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "1d0d70352bee413d",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "모든 속성"
+            }
+          },
+          {
+            "id": "964b112195d8e01d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "01-reviews/code-review-2026-05-12-en.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "code-review-2026-05-12-en 의 개요"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "bases:새 베이스 생성하기": false
+    }
+  },
+  "active": "61c056dad807f0d0",
+  "lastOpenFiles": [
+    "factory_interior_top_view_reference.png",
+    "hk416_3d_reference_sheet.png",
+    "test_map_top_view_reference.png",
+    "swat_tpose_modeling_reference.png",
+    "00-index-en.md",
+    "00-index.md",
+    "01-reviews/code-review-2026-05-12-en.md",
+    "03-decisions/adr-2026-05-12-visible-mask-enemy-rendering-ko.md",
+    "04-handoff/fog-of-war-handoff-ko.md",
+    "00-index-ko.md",
+    "02-systems/enemy-visibility-ko.md",
+    "02-systems/character-base-ko.md",
+    "01-reviews/code-review-2026-05-12-ko.md",
+    "90-templates/system-template-ko.md",
+    "90-templates/adr-template-ko.md",
+    "90-templates/review-template-ko.md",
+    "02-systems/peek-door-top-down-cqb-en.md",
+    "02-systems/fog-of-war-ko.md",
+    "04-handoff/fog-of-war-handoff.md",
+    "90-templates/system-template-en.md",
+    "90-templates/adr-template-en.md",
+    "90-templates/review-template-en.md",
+    "04-handoff/fog-of-war-handoff-en.md",
+    "03-decisions/adr-2026-05-12-visible-mask-enemy-rendering-en.md",
+    "02-systems/peek-door-top-down-cqb-ko.md",
+    "02-systems/character-base-en.md",
+    "02-systems/enemy-visibility-en.md",
+    "02-systems/fog-of-war-en.md",
+    "03-decisions/adr-2026-05-12-visible-mask-enemy-rendering.md"
+  ]
+}

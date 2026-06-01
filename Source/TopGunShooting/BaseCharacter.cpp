@@ -46,30 +46,6 @@ ABaseCharacter::ABaseCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> MoveActionFinder(TEXT("/Game/Input/IA_Move.IA_Move"));
-	if (MoveActionFinder.Succeeded())
-	{
-		MoveAction = MoveActionFinder.Object;
-	}
-
-	static ConstructorHelpers::FObjectFinder<UInputAction> LookActionFinder(TEXT("/Game/Input/IA_Look.IA_Look"));
-	if (LookActionFinder.Succeeded())
-	{
-		LookAction = LookActionFinder.Object;
-	}
-
-	static ConstructorHelpers::FObjectFinder<UInputAction> PrecisionMoveActionFinder(TEXT("/Game/Input/IA_PrecisionMove.IA_PrecisionMove"));
-	if (PrecisionMoveActionFinder.Succeeded())
-	{
-		PrecisionMoveAction = PrecisionMoveActionFinder.Object;
-	}
-
-	static ConstructorHelpers::FObjectFinder<UInputAction> FastMoveActionFinder(TEXT("/Game/Input/IA_FastMove.IA_FastMove"));
-	if (FastMoveActionFinder.Succeeded())
-	{
-		FastMoveAction = FastMoveActionFinder.Object;
-	}
-
 	USkeletalMeshComponent* CharacterMesh = GetMesh();
 	CharacterMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -96.0f));
 	CharacterMesh->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
